@@ -1,14 +1,23 @@
+var path = require('path');
+
 module.exports = {
-    entry: './src/app.js',
+    entry: [
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client?http://localhost:8080',
+        path.resolve(__dirname, 'src/app.js')
+    ],
     output: {
-        path: './dist',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
-    loaders: [
-        {
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel'
-        }
-    ]
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            }
+        ]
+    },
+    devtool: "cheap-module-source-map"
 };
